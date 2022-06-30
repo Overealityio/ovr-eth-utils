@@ -1,17 +1,17 @@
 [package]
-name = "eth-utils"
+name = "ovr-eth-utils"
 version = "0.3.3"
 authors = []
 edition = "2021"
 license = "MIT"
 description = "..."
-homepage = "https://github.com/Overealityio/eth-utils"
-repository = "https://github.com/Overealityio/eth-utils.git"
+homepage = "https://github.com/Overealityio/ovr-eth-utils"
+repository = "https://github.com/Overealityio/ovr-eth-utils.git"
 keywords = ["eth", "evm", "ecdsa"]
 categories = ["data-structures", "algorithms"]
 
 [dependencies]
-ruc = "1.0.5"
+ovr-ruc = "1.0.8"
 rand = "0.8.5"
 byteorder = "1.4.3"
 serde = { version = "1.0.136", features = ["derive"] }

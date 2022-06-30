@@ -8,7 +8,7 @@ use ethereum_types::{H160, H256};
 use hashing::keccak_256;
 use libsecp256k1::{PublicKey, SecretKey};
 use rand::{rngs::OsRng, RngCore};
-use ruc::eg;
+use ovr_ruc::eg;
 use serde::{de, Deserialize, Deserializer, Serialize, Serializer};
 use sha3::{Digest, Keccak256};
 use std::{fmt, str::FromStr};
@@ -100,7 +100,7 @@ impl Public {
     /// Create a new instance from the given full public key.
     ///
     /// This will convert the full public key into the compressed format.
-    pub fn from_full(full: &[u8]) -> ruc::Result<Self> {
+    pub fn from_full(full: &[u8]) -> ovr_ruc::Result<Self> {
         libsecp256k1::PublicKey::parse_slice(full, None)
             .map(|k| k.serialize_compressed())
             .map(Self)
@@ -310,7 +310,7 @@ impl SecpPair {
     }
 
     /// Generate key pair from given recovery phrase and password.
-    pub fn from_phrase(phrase: &str, password: Option<&str>) -> ruc::Result<(SecpPair, Seed)> {
+    pub fn from_phrase(phrase: &str, password: Option<&str>) -> ovr_ruc::Result<(SecpPair, Seed)> {
         let mnemonic = Mnemonic::from_phrase_in(Language::English, phrase)
             .map_err(|_| eg!("InvalidPhrase"))?;
         let bs = mnemonic.to_seed(password.unwrap_or(""));
@@ -336,7 +336,7 @@ impl SecpPair {
     /// will return `None`.
     ///
     /// You should never need to use this; generate(), generate_with_phrase
-    pub fn from_seed_slice(seed_slice: &[u8]) -> ruc::Result<SecpPair> {
+    pub fn from_seed_slice(seed_slice: &[u8]) -> ovr_ruc::Result<SecpPair> {
         let secret = SecretKey::parse_slice(seed_slice).map_err(|_| eg!("InvalidSeedLength"))?;
         let public = PublicKey::from_secret_key(&secret);
         Ok(SecpPair { public, secret })
